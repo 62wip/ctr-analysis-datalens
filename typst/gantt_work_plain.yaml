@@ -1,0 +1,91 @@
+start: 2025-12-01
+end: 2026-05-01
+
+tasks:
+  - name: Исследовательская часть
+    subtasks:
+      - name: "Изучение предметной области \n и постановка задачи"
+        start: 2025-12-02
+        end: 2025-12-10
+        id: research
+
+      - name: "Исследование набора данных и \n описательный анализ"
+        start: 2025-12-14
+        end: 2025-12-19
+        id: dataset-description
+
+      - name: "Обзор источников"
+        start: 2025-12-14
+        end: 2025-12-19
+        id: source-view
+      
+      - name: "Сравнение результатов с \n участниками конкурса Kaggle"
+        start: 2025-12-23
+        end: 2025-12-25
+        id: kaggle
+        dependencies:
+          - id: cat-boost
+
+      - name: "Прохождение курса \n «DataLens: анализ и визуализация данных»"
+        start: 2026-01-10
+        end: 2026-01-28
+        id: data-lens-course
+
+  - name: Программная часть
+    subtasks:
+      - name: "Применение алгоритма CatBoost \n для прогнозирования CTR"
+        start: 2025-12-19
+        end: 2025-12-23
+        id: cat-boost
+
+      # - name: "Визуализация результатов анализа \n в Yandex DataLens"
+      #   start: 2026-02-10
+      #   end: 2026-03-05
+      #   id: data-visualization
+      #   dependencies:
+      #     - id: kaggle
+      #     - id: data-lens-course
+
+      - name: "Создание макета дашборда"
+        start: 2026-01-25
+        end: 2026-02-15
+        id: dashboard-mockup
+        dependencies:
+          - id: data-lens-course
+  
+      - name: "Подключение набора данных и \n результатов соревнования Kaggle"
+        start: 2026-02-17
+        end: 2026-02-22
+        id: source-connection
+        dependencies:
+          - id: dataset-description
+          - id: kaggle
+
+      - name: "Создание основых чартов для дашборда"
+        start: 2026-02-25
+        end: 2026-03-25
+        id: chart
+        dependencies:
+          - id: dashboard-mockup
+          - id: source-connection
+      
+      - name: "Сбор финальной версии дашборда"
+        start: 2026-03-28
+        end: 2026-04-15
+        id: final-dashboard
+        dependencies:
+          - id: chart
+      
+      - name: "Тестировование и оптимизация дашборда"
+        start: 2026-04-15
+        end: 2026-04-20
+        id: testing-dashboard
+        dependencies:
+          - id: final-dashboard
+      
+
+
+milestones:
+  - name: КТ-1
+    date: 2026-02-04
+  # TODO: Добавить КТ-2 и Защиту курсача
