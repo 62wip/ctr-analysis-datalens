@@ -52,7 +52,7 @@ def generate_typst_table(csv_file, output_file, max_rows=10):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(typst_code))
 
-    print(f"✓ Typst-код таблицы сохранен в: {output_file}")
+    print(f"Typst-код таблицы сохранен в: {output_file}")
     print(f"  Строк: {len(df)}, Колонок: {num_cols}")
     print(f"\nДля вставки в документ используйте:")
     print(f"  #include \"{output_file}\"")
