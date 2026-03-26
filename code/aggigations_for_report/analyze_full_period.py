@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Скрипт для определения полного периода сбора данных в датасете.
-Анализирует весь датасет эффективно.
-"""
-
 import sys
 import gzip
 from datetime import datetime
@@ -11,15 +5,6 @@ from collections import Counter
 
 
 def parse_hour_field(hour_str):
-    """
-    Парсит поле hour в формате YYMMDDHH.
-
-    Args:
-        hour_str: строка в формате YYMMDDHH (например, "14102100")
-
-    Returns:
-        datetime объект
-    """
     try:
         year = int("20" + hour_str[:2])
         month = int(hour_str[2:4])
@@ -31,9 +16,6 @@ def parse_hour_field(hour_str):
 
 
 def analyze_full_dataset(file_path):
-    """
-    Анализирует весь датасет для определения периода.
-    """
     print(f"📊 Полный анализ датасета: {file_path}")
     print("="*60)
 
@@ -43,10 +25,8 @@ def analyze_full_dataset(file_path):
         total_lines = 0
 
         print(f"⏳ Чтение всего датасета...")
-        print(f"   (это может занять несколько минут)")
 
         with gzip.open(file_path, 'rt', encoding='utf-8') as f:
-            # Читаем заголовок
             header = f.readline().strip().split(',')
 
             try:
@@ -57,7 +37,6 @@ def analyze_full_dataset(file_path):
 
             print(f"✅ Найден столбец 'hour' (индекс {hour_index})")
 
-            # Читаем все строки
             for line in f:
                 parts = line.strip().split(',')
                 if len(parts) > hour_index:
@@ -70,7 +49,6 @@ def analyze_full_dataset(file_path):
 
                 total_lines += 1
 
-                # Прогресс каждые 1 млн строк
                 if total_lines % 1000000 == 0:
                     print(f"   Обработано: {total_lines:,} строк, найдено {len(all_dates)} уникальных дат")
 
@@ -78,7 +56,6 @@ def analyze_full_dataset(file_path):
             print("❌ Не удалось извлечь временные данные")
             return
 
-        # Результаты
         min_time = min(all_hours)
         max_time = max(all_hours)
         unique_dates = sorted(all_dates)
@@ -103,7 +80,6 @@ def analyze_full_dataset(file_path):
             weekday = date.strftime('%A')
             print(f"   {i:2d}. {date.strftime('%Y-%m-%d')} ({weekday})")
 
-        # Статистика по часам
         hour_counts = Counter(dt.hour for dt in all_hours)
         print(f"\n🕐 Покрытие по часам суток:")
         hours_covered = len(hour_counts)
@@ -128,9 +104,6 @@ def analyze_full_dataset(file_path):
 
 
 def main():
-    """
-    Основная функция.
-    """
     print("🎯 Полный анализ периода данных Avazu CTR Prediction")
     print("="*60)
 

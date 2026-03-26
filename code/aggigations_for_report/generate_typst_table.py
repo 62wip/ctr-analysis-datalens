@@ -1,41 +1,22 @@
-#!/usr/bin/env python3
-"""
-Генерация Typst-кода таблицы из CSV файла
-"""
-
 import pandas as pd
 
 def generate_typst_table(csv_file, output_file, max_rows=10):
-    """
-    Генерирует Typst-код таблицы из CSV
-
-    Args:
-        csv_file: путь к CSV файлу
-        output_file: путь к выходному .typ файлу
-        max_rows: максимальное количество строк
-    """
-    # Читаем CSV
     df = pd.read_csv(csv_file)
 
-    # Ограничиваем количество строк
     if len(df) > max_rows:
         df = df.head(max_rows)
 
-    # Начинаем генерацию Typst кода
     typst_code = []
 
-    # Добавляем настройки для альбомной ориентации и мелкого шрифта
     typst_code.append("#set page(flipped: true)")
     typst_code.append("#set text(size: 7pt)")
     typst_code.append("")
     typst_code.append("#figure(")
     typst_code.append("  table(")
 
-    # Количество колонок
     num_cols = len(df.columns)
     typst_code.append(f"    columns: {num_cols},")
 
-    # Выравнивание (left для строк, right для чисел)
     align_list = []
     for col in df.columns:
         if df[col].dtype in ['int64', 'float64']:
@@ -44,22 +25,18 @@ def generate_typst_table(csv_file, output_file, max_rows=10):
             align_list.append('left')
     typst_code.append(f"    align: ({', '.join(align_list)}),")
 
-    # Заголовки
     headers = ', '.join([f'[*{col}*]' for col in df.columns])
     typst_code.append(f"    {headers},")
 
-    # Данные
     for idx, row in df.iterrows():
         values = []
         for col in df.columns:
             val = row[col]
-            # Форматируем значение
             if pd.isna(val):
                 values.append('[-]')
             elif isinstance(val, (int, float)):
                 values.append(f'[{val}]')
             else:
-                # Экранируем специальные символы для Typst
                 val_str = str(val).replace('\\', '\\\\').replace('[', '\\[').replace(']', '\\]')
                 values.append(f'[`{val_str}`]')
 
@@ -72,7 +49,6 @@ def generate_typst_table(csv_file, output_file, max_rows=10):
     typst_code.append("#set page(flipped: false)")
     typst_code.append("#set text(size: 14pt)")
 
-    # Записываем в файл
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(typst_code))
 
