@@ -147,6 +147,12 @@
 #include "dashboard_layout.typ"
 #pagebreak()
 
+#include "catboost_learning.typ"
+#pagebreak()
+
+#include "data_preporation_and_loading.typ"
+#pagebreak()
+
 // #include "conclusion.typ"
 // #pagebreak()
 
