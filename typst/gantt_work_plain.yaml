@@ -62,23 +62,23 @@ tasks:
           - id: kaggle
 
       - name: "Создание основых чартов для дашборда"
-        start: 2026-04-16
-        end: 2026-05-10
+        start: 2026-04-14
+        end: 2026-04-30
         id: chart
         dependencies:
           - id: dashboard-mockup
           - id: source-connection
 
       - name: "Сбор финальной версии дашборда"
-        start: 2026-05-06
-        end: 2026-05-17
+        start: 2026-04-26
+        end: 2026-05-10
         id: final-dashboard
         dependencies:
           - id: chart
 
-      - name: "Тестировование и оптимизация дашборда"
-        start: 2026-05-14
-        end: 2026-05-28
+      - name: "Тестирование и оптимизация дашборда"
+        start: 2026-05-09
+        end: 2026-05-17
         id: testing-dashboard
         dependencies:
           - id: final-dashboard
