@@ -156,4 +156,7 @@
 // #include "conclusion.typ"
 // #pagebreak()
 
+#include "ai_usage.typ"
+#pagebreak()
+
 #bibliography("bibliography.bib", title: "Список литературы", style: "gost-r-705-2008-numeric")
