@@ -1,4 +1,4 @@
-= Описание набора данных Click-Through Rate Prediction
+= Описание набора данных Click-Through Rate Prediction <dataset_description>
 
 == Общая характеристика набора данных
 

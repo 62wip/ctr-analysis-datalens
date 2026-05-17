@@ -203,7 +203,7 @@ calibration_df['perfect_calibration'] = calibration_df['real_ctr']
   caption: [Вычисления среднего реального и предсказанного CTR в групперовке по разным признакам],
 ) <lst:diff_ctr_calculation>
 
-== Подключение источников данных в Yandex DataLens
+== Подключение источников данных в Yandex DataLens <data_connection>
 
 === Подключение ClickHouse
 

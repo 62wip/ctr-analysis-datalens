@@ -98,14 +98,23 @@
 // Настройка формата ссылок на таблицы и рисунки (только номер)
 #show ref: it => {
   let el = it.element
-  if el != none and el.func() == figure {
-    // Получаем номер секции и номер внутри секции
+  if el != none {
     let loc = el.location()
-    let section = counter(heading).at(loc).first()
-    let fig_counter = counter(figure.where(kind: el.kind)).at(loc).last()
 
-    // Возвращаем только номер в формате "секция.номер"
-    link(loc, [#section.#fig_counter])
+    if el.func() == figure {
+      // Логика для рисунков: номер_секции.номер_рисунка
+      let section = counter(heading).at(loc).first()
+      let fig_counter = counter(figure.where(kind: el.kind)).at(loc).last()
+
+      link(loc, [#section.#fig_counter])
+    } else if el.func() == heading {
+      // Логика для глав/заголовков: возвращает полный номер (например, 1 или 1.2)
+
+      let heading_counter = counter(heading).at(loc)
+      link(loc, numbering(el.numbering, ..heading_counter))
+    } else {
+      it
+    }
   } else {
     it
   }
@@ -153,8 +162,8 @@
 #include "data_preporation_and_loading.typ"
 #pagebreak()
 
-// #include "conclusion.typ"
-// #pagebreak()
+#include "conclusion.typ"
+#pagebreak()
 
 #include "ai_usage.typ"
 #pagebreak()
