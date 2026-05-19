@@ -35,13 +35,14 @@
 #### Клонирование репозитория
 
 ```bash
-git clone <repo_url>
-cd <repo_name>
+git clone https://github.com/62wip/ctr-analysis-datalens.git
+cd ctr-analysis-datalens
 ```
 
 #### Установка зависимостей
 
 ```bash
+cd code
 pip install -r requirements.txt
 ```
 
@@ -49,4 +50,4 @@ pip install -r requirements.txt
 
 #### Работа с Jupyter Notebook
 
-Большая часть экспериментов, EDA и подготовки данных выполняется в Jupyter Notebook-файлах (`.ipynb`), расположенных в директории `code/`. Их необходимо запускать после клонирования репозитория локално или с ипользованием облачных сервисов для работы с Jupyter Notebooks.
+Все части EDA, подготовки данных и обучение модели CatBoost выполняется в Jupyter Notebook-файлах (`.ipynb`), расположенных в директории `code/`. Их необходимо запускать после клонирования репозитория локально или с иcпользованием облачных сервисов для работы с Jupyter Notebooks.
