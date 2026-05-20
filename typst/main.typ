@@ -33,7 +33,7 @@
 #set enum(numbering: "1.1.")
 
 // Настройка маркеров для маркированных списков
-#set list(marker: ([•], [--]))
+#set list(marker: ([•], [◦]))
 
 // Увеличиваем расстояние между номером и названием раздела
 #show heading: it => {
@@ -50,6 +50,7 @@
 }
 
 #show heading.where(level: 1): it => {
+  counter(figure).update(0)
   set text(size: 16pt, weight: "bold")
   set block(above: 1.5em, below: 1em)
   set par(first-line-indent: 0pt)
@@ -63,14 +64,21 @@
   it
 }
 
+#show heading.where(level: 3): it => {
+  set text(size: 14pt, weight: "bold")
+  set block(above: 1.0em, below: 0.6em)
+  set par(first-line-indent: 0pt)
+  it
+}
+
 // Настройки для рисунков и таблиц
 #show figure.where(kind: image): set figure(supplement: [Рисунок])
 #show figure.where(kind: table): set figure(supplement: [Таблица])
 
 // Нумерация рисунков и таблиц по секциям
-#set figure(numbering: num => {
+#set figure(numbering: (_) => context {
   let h = counter(heading).get().first()
-  let c = num
+  let c = counter(figure).get().first()
   numbering("1.1", h, c)
 })
 
@@ -98,23 +106,13 @@
 // Настройка формата ссылок на таблицы и рисунки (только номер)
 #show ref: it => {
   let el = it.element
-  if el != none {
+  if el != none and el.func() == figure {
     let loc = el.location()
 
-    if el.func() == figure {
-      // Логика для рисунков: номер_секции.номер_рисунка
-      let section = counter(heading).at(loc).first()
-      let fig_counter = counter(figure.where(kind: el.kind)).at(loc).last()
+    let section = counter(heading).at(loc).first()
+    let fig_counter = counter(figure).at(loc).first()
 
-      link(loc, [#section.#fig_counter])
-    } else if el.func() == heading {
-      // Логика для глав/заголовков: возвращает полный номер (например, 1 или 1.2)
-
-      let heading_counter = counter(heading).at(loc)
-      link(loc, numbering(el.numbering, ..heading_counter))
-    } else {
-      it
-    }
+    link(loc, [#section.#fig_counter])
   } else {
     it
   }
