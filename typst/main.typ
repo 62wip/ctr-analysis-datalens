@@ -167,3 +167,6 @@
 #pagebreak()
 
 #bibliography("bibliography.bib", title: "Список литературы", style: "gost-r-705-2008-numeric")
+
+#set heading(numbering: none)
+#include "application.typ"
