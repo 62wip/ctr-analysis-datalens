@@ -61,7 +61,7 @@ tasks:
           - id: dataset-description
           - id: kaggle
 
-      - name: "Создание основых чартов для дашборда"
+      - name: "Создание основных чартов для дашборда"
         start: 2026-04-14
         end: 2026-04-30
         id: chart
